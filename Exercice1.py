@@ -9,7 +9,7 @@ def initDBs():
     """Réinitialise les bases de faits et règles"""
     global faits, regles
     faits = []
-    regles = []
+    regles = [] 
 
 def afficher_faits():
     """Affiche le contenu de la base de faits"""
