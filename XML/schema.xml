@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:noNamespaceSchemaLocation="schema.xsd">
+    <Invoice number="INV12345678">
+        <Date>2025-04-15</Date>
+        <Seller>
+            <BusinessName>ABC Corp Ltd</BusinessName>
+            <Address>
+                <StreetNumber>123</StreetNumber>
+                <City>Paris</City>
+                <PostalCode>75001</PostalCode>
+                <Country>France</Country>
+            </Address>
+            <TaxID>FR12345678901</TaxID>  <!-- Added country code prefix -->
+        </Seller>
+        <Buyer taxID="GB98765432101">  <!-- Added country code prefix -->
+            <BusinessName>XYZ Ltd</BusinessName>
+            <Address>
+                <StreetNumber>456</StreetNumber>
+                <City>London</City>
+                <PostalCode>EC1A 1BB</PostalCode>  <!-- Corrected UK format -->
+                <Country>United Kingdom</Country>
+            </Address>
+        </Buyer>
+        <Items>
+            <Item>
+                <Description>Product 1</Description>
+                <Quantity>10</Quantity>  <!-- Fixed abbreviated tag -->
+                <UnitPrice currency="EUR">25.50</UnitPrice>  <!-- Added currency -->
+                <TotalPrice>255.00</TotalPrice>
+            </Item>
+            <Item>
+                <Description>Product 2</Description>
+                <Quantity>5</Quantity>
+                <UnitPrice currency="EUR">50.00</UnitPrice>
+                <TotalPrice>250.00</TotalPrice>
+            </Item>
+        </Items>
+        <InvoiceTotal currency="EUR">505.00</InvoiceTotal>  <!-- Added grand total -->
+    </Invoice>
+</Invoices>
