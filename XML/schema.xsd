@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="InvNbr_Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9]{10}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Date_Type">
+        <xs:restriction base="xs:date">
+            <xs:minInclusive value="2025-04-11"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Busness_Name_Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="20"/>
+            <xs:maxLength value="100"/>
+            <xs:pattern value="[A-Za-z\s]+" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="addrNbr_Type">
+        <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="9999"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="City_Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="2"/>
+            <xs:maxLength value="50"/>
+            <xs:pattern value="[a-zA-Z\s]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="CodePostal_Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(0[0-9]|[1-4][0-9]|5[0-8])([0-9]{3})"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="adress">
+        <xs:sequence>
+            <xs:element name="addrNbr" type="addrNbr_Type"/>
+            <xs:element name="city" type="City_Type"/>
+            <xs:element name="codePostal" type="CodePostal_Type"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Mob_Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(06|07)[0-9]{8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="taxId_Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{15}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="description_Type">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="15"/>
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="quant_Type">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="999999"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="unitPrice_Type">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01"/>
+            <xs:maxInclusive value="999999.99"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+      <xs:simpleType name="totalPrice_Type">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0.01"/>
+            <xs:maxInclusive value="999999.99"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="item_Type">
+        <xs:sequence>
+            <xs:element name="description" type="description_Type"/>
+            <xs:element name="quant" type="quant_Type"/>
+            <xs:element name="unitPrice" type="unitPrice_Type"/>
+            <xs:element name="totalPrice" type="totalPrice_Type"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="seller">
+        <xs:sequence>
+            <xs:element name="seller_business_name" type="Busness_Name_Type"/>
+            <xs:element name="seller_address" type="adress"/>
+        </xs:sequence>
+         <xs:attribute name="seller_tax_ID" type="taxId_Type" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="buyer">
+        <xs:sequence>
+            <xs:element name="buyer_business_name" type="Busness_Name_Type"/>
+            <xs:element name="buyer_address" type="adress"/>
+        </xs:sequence>
+        <xs:attribute name="buyer_tax_ID" type="taxId_Type" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="items_Type">
+        <xs:sequence>
+            <xs:element name="item" type="item_Type" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Invoice_Type">
+        <xs:sequence>
+            <xs:element name="Date" type="Date_Type"/>
+            <xs:element name=" seller" type="seller"/>
+            <xs:element name="buyer" type="buyer"/>
+            <xs:element name="items" type="items_Type"/>
+        </xs:sequence>
+        <xs:attribute name="number" type="InvNbr_Type" use="required"/>
+    </xs:complexType>
+
+    <xs:element name="Invoices">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Invoice" type="Invoice_Type" maxOccurs="unbounded"/>
+            </xs:sequence>
+            
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
